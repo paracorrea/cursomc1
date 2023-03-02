@@ -16,7 +16,7 @@ import com.fernando.aulaspring.dominio.Categorias;
 import com.fernando.aulaspring.services.CategoriaService;
 
 @RestController
-//@RequestMapping(value="/categorias")
+@RequestMapping(value="/categorias")
 public class CatagoriaResources {
 
 	
