@@ -10,16 +10,14 @@ import com.fernando.aulaspring.dominio.Categorias;
 import com.fernando.aulaspring.repositories.CategoriaRepository;
 import com.fernando.aulaspring.services.exceptions.ObjectNotFoundException;
 
-
 @Service
 public class CategoriaService {
-
 
 	@Autowired
 	private CategoriaRepository repo;
 
 	public Categorias find(Integer id) {
-		
+
 		Optional<Categorias> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(

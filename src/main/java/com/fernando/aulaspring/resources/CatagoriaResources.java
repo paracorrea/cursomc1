@@ -31,6 +31,7 @@ public class CatagoriaResources {
 		
 		
 		Categorias obj = service.find(id);
+		
 		return ResponseEntity.ok().body(obj);
 		
 	}
@@ -40,9 +41,7 @@ public class CatagoriaResources {
 	public ResponseEntity<?> findAll() {
 		
 		List<Categorias> obj = service.buscarAll();
-		
-		
-		
+			
 		return ResponseEntity.ok().body(obj);
 		
 	}
