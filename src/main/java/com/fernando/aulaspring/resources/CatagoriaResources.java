@@ -30,7 +30,7 @@ public class CatagoriaResources {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
 		
-		Categorias obj = service.buscar(id);
+		Categorias obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 		
 	}
@@ -40,6 +40,9 @@ public class CatagoriaResources {
 	public ResponseEntity<?> findAll() {
 		
 		List<Categorias> obj = service.buscarAll();
+		
+		
+		
 		return ResponseEntity.ok().body(obj);
 		
 	}
@@ -54,8 +57,15 @@ public class CatagoriaResources {
 		
 	}
 	
-	
-	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categorias obj, @PathVariable Integer id) {
+		
+		obj.setId(id);
+		obj = service.update(obj);
+		
+		return ResponseEntity.noContent().build();
+		
+	}
 	
 	
 }
