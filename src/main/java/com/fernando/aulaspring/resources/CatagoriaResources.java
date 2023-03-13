@@ -66,5 +66,13 @@ public class CatagoriaResources {
 		
 	}
 	
-	
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		
+		
+		service.delete(id);
+		
+		return ResponseEntity.noContent().build();
+		
+	}
 }

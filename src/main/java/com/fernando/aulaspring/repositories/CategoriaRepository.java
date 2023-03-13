@@ -7,6 +7,8 @@ import com.fernando.aulaspring.dominio.Categorias;
 // A interface repositorio instancia o banco de dados
 public interface CategoriaRepository extends  JpaRepository<Categorias, Integer>{
 
+	//Categorias deleteById(Categorias obj);
+
 	
 
 	
