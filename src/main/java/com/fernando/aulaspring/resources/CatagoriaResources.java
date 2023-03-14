@@ -2,8 +2,9 @@ package com.fernando.aulaspring.resources;
 
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fernando.aulaspring.dominio.Categorias;
+import com.fernando.aulaspring.dominio.dao.CategoriasDTO;
 import com.fernando.aulaspring.services.CategoriaService;
 
 @RestController
@@ -37,12 +39,14 @@ public class CatagoriaResources {
 	}
 	
 	
-	@RequestMapping(value="/todos", method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriasDTO>> findAll() {
 		
-		List<Categorias> obj = service.buscarAll();
+		List<Categorias> list = service.buscarAll();
+		List<CategoriasDTO> listDto = list.stream().map(obj -> new CategoriasDTO(obj)).collect(Collectors.toList());
 			
-		return ResponseEntity.ok().body(obj);
+		
+		return ResponseEntity.ok().body(listDto);
 		
 	}
 	
@@ -66,7 +70,7 @@ public class CatagoriaResources {
 		
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable Integer id) {
 		
 		
