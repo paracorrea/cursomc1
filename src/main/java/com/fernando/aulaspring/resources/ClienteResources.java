@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fernando.aulaspring.dominio.Cliente;
@@ -19,13 +18,13 @@ public class ClienteResources {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@RequestMapping(value="/cliente/{id}", method = RequestMethod.GET)
+	@GetMapping("/cliente/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
 		Cliente obj = clienteService.buscar(id);
 		return ResponseEntity.ok().body(obj);	}
 	
-	@RequestMapping(value="/cliente/todos", method = RequestMethod.GET)
+	@GetMapping("/cliente/todos")
 	public ResponseEntity<?> findAll() {
 		
 		List<Cliente> obj = clienteService.buscarAll();

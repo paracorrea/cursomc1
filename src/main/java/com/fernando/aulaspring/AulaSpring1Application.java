@@ -61,8 +61,12 @@ public class AulaSpring1Application implements CommandLineRunner{
 		
 		Categorias cat1 = new Categorias(null, "Informática");
 		Categorias cat2 = new Categorias(null, "Escritório");
-		
-		
+		Categorias cat3 = new Categorias(null, "Moveis");
+		Categorias cat4 = new Categorias(null, "Alimentos");
+		Categorias cat5 = new Categorias(null, "Cama mesa e banho");
+		Categorias cat6 = new Categorias(null, "Cozinha");
+		Categorias cat7 = new Categorias(null, "Roupa");
+		Categorias cat8 = new Categorias(null, "Calçados");
 		
 		Produto p1 = new Produto(null,"Computador",2000.0);
 		Produto p2 = new Produto(null,"Impressora",800.0);
@@ -77,7 +81,7 @@ public class AulaSpring1Application implements CommandLineRunner{
 		
 		
 		
-		categoriaRepoisitory.saveAll(Arrays.asList(cat1,cat2));
+		categoriaRepoisitory.saveAll(Arrays.asList(cat1,cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
