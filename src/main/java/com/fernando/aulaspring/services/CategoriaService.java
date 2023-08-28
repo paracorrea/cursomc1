@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.fernando.aulaspring.dominio.Categorias;
+import com.fernando.aulaspring.dominio.dao.CategoriasDTO;
 import com.fernando.aulaspring.repositories.CategoriaRepository;
 import com.fernando.aulaspring.services.exceptions.DataIntegrityException;
 import com.fernando.aulaspring.services.exceptions.ObjectNotFoundException;
@@ -53,6 +54,11 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 
+	
+	public Categorias fromCategoriaDto(CategoriasDTO objDTO) {
+		return new Categorias(objDTO.getId(),objDTO.getNome());
+	}
+	
 	public void delete(Integer id) {
 
 		find(id);
@@ -64,5 +70,7 @@ public class CategoriaService {
 			throw new DataIntegrityException("Não é possivel excluir uma categoria que já possua produtos associados");
 		}
 
+	
+		
 	}
 }

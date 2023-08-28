@@ -5,14 +5,19 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,7 +34,7 @@ public class CatagoriaResources {
 	@Autowired
 	private CategoriaService service;
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	@GetMapping("/{id}")
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
 		
@@ -40,7 +45,7 @@ public class CatagoriaResources {
 	}
 	
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@GetMapping("/")
 	public ResponseEntity<List<CategoriasDTO>> findAll() {
 		
 		List<Categorias> list = service.buscarAll();
@@ -67,9 +72,9 @@ public class CatagoriaResources {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categorias obj) {
-		
+	@PostMapping
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriasDTO objDto) {
+		Categorias obj = service.fromCategoriaDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
@@ -77,8 +82,8 @@ public class CatagoriaResources {
 		
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categorias obj, @PathVariable Integer id) {
+	@PutMapping("/{id}")
+		public ResponseEntity<Void> update(@RequestBody Categorias obj, @PathVariable Integer id) {
 		
 		obj.setId(id);
 		obj = service.update(obj);
@@ -87,7 +92,7 @@ public class CatagoriaResources {
 		
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Integer id) {
 		
 		

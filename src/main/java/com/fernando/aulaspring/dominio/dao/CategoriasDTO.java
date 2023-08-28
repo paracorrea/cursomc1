@@ -2,6 +2,12 @@ package com.fernando.aulaspring.dominio.dao;
 
 import java.io.Serializable;
 
+
+import javax.validation.constraints.NotBlank;
+
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fernando.aulaspring.dominio.Categorias;
 
 public class CategoriasDTO  implements Serializable {
@@ -10,6 +16,9 @@ public class CategoriasDTO  implements Serializable {
 
 	
 	Integer id;
+	
+	@NotBlank
+	@Length(min = 2, max=25)
 	String nome;
 	
 	
