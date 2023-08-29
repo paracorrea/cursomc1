@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,32 +39,37 @@ public class CatagoriaResources {
 		
 		
 		Categorias obj = service.find(id);
+		CategoriasDTO objDTO = new CategoriasDTO(obj) ;
 		
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(objDTO);
 		
 	}
 	
 	
-	@GetMapping("/")
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriasDTO>> findAll() {
 		
 		List<Categorias> list = service.buscarAll();
+		
+		// Depois de buscar a lista no banco de dados, transposma em DTO para obter somente os objetos descritos no DTO
 		List<CategoriasDTO> listDto = list.stream().map(obj -> new CategoriasDTO(obj)).collect(Collectors.toList());
-			
-		
 		return ResponseEntity.ok().body(listDto);
-		
 	}
+	
+	
+	// recebe os parâmetros de paginação e encaminha para o método buscarPorPag no @Service para trazer os dados do 
+	// repositório com as informações para a paginação
 	
 	@GetMapping("/page")
 	public ResponseEntity<Page<CategoriasDTO>> findAllPage(
 			@RequestParam(value="page", defaultValue="0")Integer page,
 			@RequestParam(value="linesPerPage", defaultValue="24")Integer linePerPage,
 			@RequestParam(value="orderBy", defaultValue="nome") String order,
-			@RequestParam(value="direction", defaultValue="ASC") String direction)
-	{
+			@RequestParam(value="direction", defaultValue="ASC") String direction) 	{
 		
 		Page<Categorias> list = service.buscarPorPag(page, linePerPage, order, direction);
+		
+		// Converte a lista em DTO
 		Page<CategoriasDTO> listDto = list.map(obj -> new CategoriasDTO(obj));
 			
 		
@@ -72,8 +77,11 @@ public class CatagoriaResources {
 		
 	}
 	
-	@PostMapping
+	// O DTO define os campos e a validação necessária para inserir os dados.
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriasDTO objDto) {
+		
+		// O metodo fromCategoriaDto transforma os dados de CategoriaDTO para a classe Categoria
 		Categorias obj = service.fromCategoriaDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

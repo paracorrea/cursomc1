@@ -25,7 +25,6 @@ public class CategoriaService {
 	public Categorias find(Integer id) {
 
 		Optional<Categorias> obj = repo.findById(id);
-
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objecto não encontrado id: " + id + ", tipo: " + Categorias.class.getName()));
 	}
@@ -35,6 +34,8 @@ public class CategoriaService {
 		return lista;
 	}
 	
+	// Metodo Bean para instanciar um seriço de requisição de informações sobre paginação
+	// deve ser passado os parâmetros no Controller
 	public Page<Categorias> buscarPorPag(Integer page,Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageResquest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy );
 		return repo.findAll(pageResquest);

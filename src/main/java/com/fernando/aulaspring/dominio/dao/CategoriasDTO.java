@@ -14,13 +14,11 @@ public class CategoriasDTO  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	
 	Integer id;
 	
 	@NotBlank
-	@Length(min = 2, max=25)
+	@Length(min = 3, max=25)
 	String nome;
-	
 	
 	public CategoriasDTO() {
 		
@@ -30,32 +28,24 @@ public class CategoriasDTO  implements Serializable {
 		
 		this.id = obj.getId();
 		this.nome = obj.getNome();
-		
-		
-	}
-
 	
+	}
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
-	
+
 	
 }
