@@ -46,7 +46,7 @@ public class CatagoriaResources {
 	}
 	
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@GetMapping(value="/")
 	public ResponseEntity<List<CategoriasDTO>> findAll() {
 		
 		List<Categorias> list = service.buscarAll();
@@ -78,7 +78,7 @@ public class CatagoriaResources {
 	}
 	
 	// O DTO define os campos e a validação necessária para inserir os dados.
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping(value = "/")
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriasDTO objDto) {
 		
 		// O metodo fromCategoriaDto transforma os dados de CategoriaDTO para a classe Categoria
